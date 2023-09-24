@@ -6,6 +6,7 @@ let playerTurn = 'X';
 const playerTurnHTML = document.querySelector('.turn');
 let isGameOver = false;
 let draw = false;
+let roundWon = false;
 let p1Count = 0;
 let p2Count = 0;
 const p1CountHTML = document.querySelectorAll('.p1');
@@ -56,8 +57,6 @@ function gameStart() {
       const bigCellIndex = e.target.parentNode.getAttribute('bigCellIndex');
       const cellIndex = e.target.getAttribute('cellIndex');
       const clicked = e.target;
-
-      console.log(p1Count);
 
       clicked.classList.add('clicked');
 
@@ -239,18 +238,17 @@ function checkWinner(move, winner) {
 }
 
 function checkBigGridWinner() {
-  let roundWon = false;
+  roundWon = false;
 
   for (let i = 0; i < winningOptions.length; i++) {
     const options = winningOptions[i];
 
-    const cellA = bigFieldPlacedMoves[options[0]];
-    const cellB = bigFieldPlacedMoves[options[1]];
-    const cellC = bigFieldPlacedMoves[options[2]];
+    const bigA = bigFieldPlacedMoves[options[0]];
+    const bigB = bigFieldPlacedMoves[options[1]];
+    const bigC = bigFieldPlacedMoves[options[2]];
 
-    if (cellA === cellB && cellB === cellC && cellA !== '') {
+    if (bigA === bigB && bigB === bigC && bigA !== '') {
       roundWon = true;
-      break;
 
       // ! find a way to either hightlight winning Cells or draw a line through them
     }
