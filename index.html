@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./Logo picture - 32x32.png" />
+    <title>TicTacToe</title>
+  </head>
+  <body>
+    <h1 class="title">TICTACTOE</h1>
+    <h1 class="counter">
+      <span class="p1">0</span> : <span class="p2">0</span>
+    </h1>
+    <div class="wrapper">
+      <div
+        bigCellIndex="0"
+        class="big-box top left">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="1"
+        class="big-box top">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="2"
+        class="big-box top right">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="3"
+        class="big-box middle left">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="4"
+        class="big-box middle">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="5"
+        class="big-box middle right">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="6"
+        class="big-box bottom left">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="7"
+        class="big-box bottom">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+      <div
+        bigCellIndex="8"
+        class="big-box bottom right">
+        <div
+          cellIndex="0"
+          class="top left"></div>
+        <div
+          cellIndex="1"
+          class="top"></div>
+        <div
+          cellIndex="2"
+          class="top right"></div>
+        <div
+          cellIndex="3"
+          class="middle left"></div>
+        <div
+          cellIndex="4"
+          class="middle"></div>
+        <div
+          cellIndex="5"
+          class="middle right"></div>
+        <div
+          cellIndex="6"
+          class="bottom left"></div>
+        <div
+          cellIndex="7"
+          class="bottom"></div>
+        <div
+          cellIndex="8"
+          class="bottom right"></div>
+      </div>
+    </div>
+
+    <div class="popup">
+      <h1 class="win-info"></h1>
+      <p>current score:</p>
+      <p class="score"><span class="p1">0</span> : <span class="p2">0</span></p>
+    </div>
+    <button class="restart">Restart Game</button>
+    <canvas id="stroke"></canvas>
+    <p class="turn"></p>
+    <p class="error">
+      Field has already been won! Please choose another square to play in.
+    </p>
+    <p class="draw-effekt-text">Draw!</p>
+
+    <script
+      src="https://kit.fontawesome.com/8a6963ffc1.js"
+      crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

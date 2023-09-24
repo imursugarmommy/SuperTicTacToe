@@ -1,0 +1,6 @@
+// let transformX = getCenterPosition(clickedBigCell).x - 700;
+// let transformY = getCenterPosition(clickedBigCell).y - 200;
+// console.log(transformX);
+// console.log(transformY);
+// playCourt.style.transform = 'scale(2)';
+// playCourt.style.transformOrigin = `${transformX}px ${transformY}px`;
