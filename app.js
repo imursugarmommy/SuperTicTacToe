@@ -310,6 +310,9 @@ restartBtn.addEventListener('click', () => {
     field.classList.remove('X');
     field.classList.remove('O');
 
+    field.classList.remove('clicked');
+    field.style.pointerEvents = 'all';
+
     field.setAttribute('won', 'false');
   });
 
