@@ -78,7 +78,64 @@ function gameStart() {
         for (let i = 0; i < placeableMoves.length; i++) {
           const placedMove = placeableMoves[i];
           const winnerField = e.target;
+          const bigCellIndexSetWinner =
+            winnerField.parentNode.getAttribute('bigCellIndex');
+          const winningBigField = bigFields[bigCellIndexSetWinner];
+
           checkWinner(placedMove, winnerField);
+
+          if (
+            !placedMove.includes('') &&
+            winningBigField.getAttribute('won') !== 'true'
+          ) {
+            // * wenn ein draw in einem Feld passiert, dann wird der komplette Array wieder blank (9 empty strings)
+            for (let i = 0; i < placedMove.length; i++) {
+              // backend nicht vergessen !
+              placedMove.splice(i, 1, '');
+            }
+
+            // * bug fixed: wenn ein draw in einem Feld passiert, dann werden alle .innerText = ''
+            // * zusaetzlicher blink-Effekt
+            const fieldDivs =
+              bigFields[bigCellIndexSetWinner].getElementsByTagName('div');
+            const fieldDivsArray = Array.from(fieldDivs);
+
+            const blinkingDiv = bigFields[bigCellIndexSetWinner];
+
+            let isTransparent = false;
+            blinkingDiv.style.color = 'var(--highlight)';
+
+            const intervalId = setInterval(() => {
+              if (isTransparent) {
+                blinkingDiv.style.background = 'var(--highlight)';
+              } else {
+                blinkingDiv.style.background = 'transparent';
+              }
+
+              isTransparent = !isTransparent;
+            }, 100);
+
+            setTimeout(() => {
+              clearInterval(intervalId);
+
+              blinkingDiv.style.background = 'transparent';
+
+              fieldDivsArray.forEach((array) => {
+                // the actual disappearing text
+                array.innerText = '';
+              });
+
+              // ? gescheiterter Versuch zu dem Effekt noch was hinzuzufuegen semi primaer, nur cool zu haben
+              // const centerA = getCenterPosition(blinkingDiv);
+              // const x = centerA.x;
+              // const y = centerA.y;
+
+              // const drawEffektElem = document.querySelector('.draw-effekt-text');
+
+              // drawEffektElem.style.display = 'block';
+              // drawEffektElem.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%);`;
+            }, 800);
+          }
         }
 
         checkBigGridWinner();
@@ -125,56 +182,6 @@ function checkWinner(move, winner) {
     const conditions = winningOptions[i];
     const bigCellIndexSetWinner =
       winner.parentNode.getAttribute('bigCellIndex');
-
-    if (!move.includes('')) {
-      // * wenn ein draw in einem Feld passiert, dann wird der komplette Array wieder blank (9 empty strings)
-      for (let i = 0; i < move.length; i++) {
-        // backend nicht vergessen !
-        move.splice(i, 1, '');
-      }
-
-      // * bug fixed: wenn ein draw in einem Feld passiert, dann werden alle .innerText = ''
-      // * zusaetzlicher blink-Effekt
-      const fieldDivs =
-        bigFields[bigCellIndexSetWinner].getElementsByTagName('div');
-      const fieldDivsArray = Array.from(fieldDivs);
-
-      const blinkingDiv = bigFields[bigCellIndexSetWinner];
-
-      let isTransparent = false;
-      blinkingDiv.style.color = 'var(--highlight)';
-
-      const intervalId = setInterval(() => {
-        if (isTransparent) {
-          blinkingDiv.style.background = 'var(--highlight)';
-        } else {
-          blinkingDiv.style.background = 'transparent';
-        }
-
-        isTransparent = !isTransparent;
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(intervalId);
-
-        blinkingDiv.style.background = 'transparent';
-
-        fieldDivsArray.forEach((array) => {
-          // the actual disappearing text
-          array.innerText = '';
-        });
-
-        // ? gescheiterter Versuch zu dem Effekt noch was hinzuzufuegen semi primaer, nur cool zu haben
-        // const centerA = getCenterPosition(blinkingDiv);
-        // const x = centerA.x;
-        // const y = centerA.y;
-
-        // const drawEffektElem = document.querySelector('.draw-effekt-text');
-
-        // drawEffektElem.style.display = 'block';
-        // drawEffektElem.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%);`;
-      }, 800);
-    }
 
     const cellA = move[conditions[0]];
     const cellB = move[conditions[1]];
