@@ -81,6 +81,8 @@ function gameStart() {
           checkWinner(placedMove, winnerField);
         }
 
+        checkBigGridWinner();
+
         changePlayer();
 
         // * bug (fixed): trotz schon voll besetztem Felde clicked-class weitergegeben an gross-grid index
@@ -217,7 +219,6 @@ function checkWinner(move, winner) {
         bigFieldPlacedMoves.splice(winningBigFieldIndex, 1, playerTurn);
 
         moves++;
-        checkBigGridWinner();
       }
 
       // const centerA = getCenterPosition(winningfield1);
