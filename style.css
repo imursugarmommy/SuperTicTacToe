@@ -156,19 +156,38 @@ button {
 
 .won.X::before {
   content: '';
-  width: 200px;
+  width: 80%;
   height: 6px;
   background-color: black;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
   rotate: -50deg;
+  transform-origin: top left;
+  animation: animateX 1s ease forwards;
 }
 .won.X::after {
   content: '';
-  width: 200px;
+  width: 80%;
   height: 6px;
   background-color: black;
   position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translateX(50%);
   rotate: 50deg;
+  transform-origin: top right;
+  animation: animateX 1s ease forwards;
+}
+
+@keyframes animateX {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 80%;
+  }
 }
 
 .wrapper > *:hover {
