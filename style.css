@@ -239,7 +239,6 @@ button {
   color: white;
   animation: pulse 2s cubic-bezier(0.26, 0.57, 0.37, 0.79) infinite;
   display: none;
-  z-index: 10;
 }
 
 @keyframes pulse {
@@ -262,7 +261,7 @@ button {
   background-color: rgba(204, 204, 204, 0.1);
   backdrop-filter: blur(0.4rem);
   display: none;
-  z-index: 10;
+  z-index: 1001;
 }
 
 .popup h1 {
@@ -276,7 +275,8 @@ button {
 
 #stroke {
   position: absolute;
-  z-index: -1;
+  z-index: 10;
+  display: none;
 }
 
 .turn {
@@ -298,6 +298,7 @@ button {
   width: 500px;
   text-align: center;
   transition: all 200ms;
+  pointer-events: none;
   /* animation: error 3s ease; */
 }
 

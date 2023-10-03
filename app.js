@@ -41,11 +41,6 @@ const statusText = document.querySelector('.win-info');
 const popup = document.querySelector('.popup');
 const restartBtn = document.querySelector('.restart');
 
-const c = document.getElementById('stroke');
-const ctx = c.getContext('2d');
-ctx.canvas.width = window.innerWidth;
-ctx.canvas.height = window.innerHeight;
-
 playerTurnHTML.innerHTML = `${playerTurn}'s Turn`;
 
 gameStart();
@@ -228,18 +223,6 @@ function checkWinner(move, winner) {
         moves++;
       }
 
-      // const centerA = getCenterPosition(winningfield1);
-      // const centerB = getCenterPosition(winningfield3);
-      // let centerPositions = [centerA, centerB];
-
-      // c.style.zIndex = '2';
-      // ctx.beginPath();
-      // ctx.moveTo(centerA.x, centerA.y);
-      // ctx.lineTo(centerB.x, centerB.y);
-      // ctx.lineWidth = 2;
-      // ctx.strokeStyle = '#606060';
-      // ctx.stroke();
-
       break;
     }
   }
@@ -259,6 +242,7 @@ function checkBigGridWinner() {
       roundWon = true;
 
       // ! find a way to either hightlight winning Cells or draw a line through them
+      drawLineThroughWinningFields(options);
     }
   }
 
@@ -292,6 +276,8 @@ function checkBigGridWinner() {
   if (isGameOver) {
     popup.style.display = 'flex';
     restartBtn.style.display = 'block';
+    restartBtn.style.zIndex = '1001';
+    c.style.zIndex = '1000';
 
     bigFields.forEach((field) => {
       field.style.pointerEvents = 'none';
@@ -348,13 +334,6 @@ restartBtn.addEventListener('click', () => {
   gameStart();
 });
 
-function getCenterPosition(element) {
-  const rect = element.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  return { x: centerX, y: centerY };
-}
-
 function changePlayer() {
   if (playerTurn === 'X') {
     playerTurn = 'O';
@@ -362,4 +341,50 @@ function changePlayer() {
     playerTurn = 'X';
   }
   playerTurnHTML.innerHTML = `${playerTurn}'s Turn`;
+}
+
+function getCenterPosition(element) {
+  const rect = element.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  return { x: centerX, y: centerY };
+}
+
+const c = document.getElementById('stroke');
+const ctx = c.getContext('2d');
+
+function drawLineThroughWinningFields(options) {
+  c.style.display = 'block';
+
+  // Get the center positions of the winning big fields
+  const centerPositions = options.map((index) => {
+    const field = bigFields[index];
+    return getCenterPosition(field);
+  });
+
+  // Set the canvas size to match the window size
+  ctx.canvas.width = window.innerWidth;
+  ctx.canvas.height = window.innerHeight;
+
+  // Draw a line through the center positions of the winning big fields
+  ctx.beginPath();
+
+  if (centerPositions[0].x === centerPositions[2].x) {
+    ctx.moveTo(centerPositions[0].x, centerPositions[0].y - 50);
+    ctx.lineTo(centerPositions[2].x, centerPositions[2].y + 50);
+    console.log('vertikal');
+  } else if (centerPositions[0].y === centerPositions[2].y) {
+    ctx.moveTo(centerPositions[0].x - 50, centerPositions[0].y);
+    ctx.lineTo(centerPositions[2].x + 50, centerPositions[2].y);
+    console.log('horizontal');
+  } else {
+    ctx.moveTo(centerPositions[0].x - 50, centerPositions[0].y - 50);
+    ctx.lineTo(centerPositions[2].x + 50, centerPositions[2].y + 50);
+    console.log('diagonal');
+  }
+
+  ctx.lineWidth = 10;
+  ctx.strokeStyle = '#606060';
+  ctx.lineJoin = 'round';
+  ctx.stroke();
 }
