@@ -190,6 +190,10 @@ function checkWinner(move, winner) {
       const winningfield2 = winningFieldArray[conditions[1]];
       const winningfield3 = winningFieldArray[conditions[2]];
 
+      // searching for middle field for the svg position bc of complications with parentNode method
+      // a bit cursed but working
+      const middleField = winningFieldArray[4];
+
       // * fix, dass in allen feldern die winnerfields von einem Feld angezeigt werden
       if (
         (winningfield1.innerText === 'X' || winningfield1.innerText === 'O') &&
@@ -216,6 +220,14 @@ function checkWinner(move, winner) {
       if (winningBigField.getAttribute('won') === 'true') {
         winningBigField.classList.add('won');
         winningBigField.classList.add(playerTurn);
+
+        // applying svg to winner class
+        if(playerTurn === 'O') {
+          middleField.innerHTML += 
+          `<svg id="circle-svg">
+            <circle cx="50%" cy="50%" r="75" />
+          </svg>`
+        }
 
         let winningBigFieldIndex = winningBigField.getAttribute('bigCellIndex');
         bigFieldPlacedMoves.splice(winningBigFieldIndex, 1, playerTurn);
