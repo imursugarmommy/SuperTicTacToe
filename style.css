@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500;600;700&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
 
 /* Box sizing rules */
 *,
@@ -25,8 +25,8 @@ dd {
 }
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-ul[role='list'],
-ol[role='list'] {
+ul[role="list"],
+ol[role="list"] {
   list-style: none;
 }
 
@@ -40,7 +40,7 @@ body {
   min-height: 100vh;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   overflow-x: hidden;
   display: grid;
   place-items: center;
@@ -138,47 +138,11 @@ button {
   cursor: pointer;
   display: grid;
   place-items: center;
-  font-family: 'lato', sans-serif;
+  font-family: "lato", sans-serif;
   font-size: calc(var(--box-width) / 2);
   font-weight: 300;
   color: rgb(128, 128, 128);
   position: relative;
-}
-
-.won.O::after {
-  content: '';
-  width: 170px;
-  height: 180px;
-  border-radius: 50%;
-  border: 6px solid black;
-  position: absolute;
-}
-
-.won.X::before {
-  content: '';
-  width: 80%;
-  height: 6px;
-  background-color: black;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  rotate: -50deg;
-  transform-origin: top left;
-  animation: animateX 1s ease forwards;
-}
-.won.X::after {
-  content: '';
-  width: 80%;
-  height: 6px;
-  background-color: black;
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  transform: translateX(50%);
-  rotate: 50deg;
-  transform-origin: top right;
-  animation: animateX 1s ease forwards;
 }
 
 @keyframes animateX {
@@ -209,7 +173,7 @@ button {
   cursor: pointer;
   display: grid;
   place-items: center;
-  font-family: 'lato', sans-serif;
+  font-family: "lato", sans-serif;
   font-size: calc(var(--box-width) / 2);
   font-weight: 300;
   color: rgb(128, 128, 128);
@@ -303,7 +267,7 @@ button {
   bottom: 50px;
   left: 50px;
   font-size: 40px;
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 700;
   color: var(--border);
 }
@@ -318,7 +282,6 @@ button {
   text-align: center;
   transition: all 200ms;
   pointer-events: none;
-  /* animation: error 3s ease; */
 }
 
 @keyframes error {
@@ -342,4 +305,64 @@ button {
   left: 0;
   transform: translate(744px, 270.5px) translate(-50%, -50%);
   display: none;
+}
+
+#circle-svg {
+  position: absolute;
+  z-index: 1000;
+  overflow: visible;
+}
+
+circle {
+  fill: transparent;
+  stroke: black;
+  stroke-width: 6px;
+  stroke-dasharray: 471;
+  stroke-dashoffset: 471;
+  animation: clock-animation 1s ease forwards;
+  transform-origin: center;
+  rotate: -90deg;
+}
+
+@keyframes clock-animation {
+  0% {
+    stroke-dashoffset: 471;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.cross__svg {
+  position: absolute;
+  border-radius: 50%;
+  display: block;
+  height: 360px;
+  aspect-ratio: 1;
+  margin: 4rem auto;
+  stroke-width: 1;
+  z-index: 1000;
+}
+
+.cross__path {
+  stroke: black;
+  stroke-dasharray: 70;
+  stroke-dashoffset: 70;
+  transform-origin: 50% 50% 0;
+}
+
+.cross__path--right {
+  animation: stroke 1.5s ease forwards;
+}
+.cross__path--left {
+  animation: stroke 1.5s ease forwards;
+}
+
+@keyframes stroke {
+  from {
+    stroke-dashoffset: 70;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
 }

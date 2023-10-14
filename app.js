@@ -1,31 +1,31 @@
-const playCourt = document.querySelector('.wrapper');
-const bigFields = document.querySelectorAll('.wrapper > *');
-const fields = document.querySelectorAll('.big-box > *');
+const playCourt = document.querySelector(".wrapper");
+const bigFields = document.querySelectorAll(".wrapper > *");
+const fields = document.querySelectorAll(".big-box > *");
 let moves = 0;
-let playerTurn = 'X';
-const playerTurnHTML = document.querySelector('.turn');
+let playerTurn = "X";
+const playerTurnHTML = document.querySelector(".turn");
 let isGameOver = false;
 let draw = false;
 let roundWon = false;
 let p1Count = 0;
 let p2Count = 0;
-const p1CountHTML = document.querySelectorAll('.p1');
-const p2CountHTML = document.querySelectorAll('.p2');
-const errorMessage = document.querySelector('.error');
+const p1CountHTML = document.querySelectorAll(".p1");
+const p2CountHTML = document.querySelectorAll(".p2");
+const errorMessage = document.querySelector(".error");
 
 let placeableMoves = [
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
-  ['', '', '', '', '', '', '', '', ''],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
+  ["", "", "", "", "", "", "", "", ""],
 ];
 
-let bigFieldPlacedMoves = ['', '', '', '', '', '', '', '', ''];
+let bigFieldPlacedMoves = ["", "", "", "", "", "", "", "", ""];
 
 const winningOptions = [
   [0, 1, 2],
@@ -37,9 +37,9 @@ const winningOptions = [
   [0, 4, 8],
   [2, 4, 6],
 ];
-const statusText = document.querySelector('.win-info');
-const popup = document.querySelector('.popup');
-const restartBtn = document.querySelector('.restart');
+const statusText = document.querySelector(".win-info");
+const popup = document.querySelector(".popup");
+const restartBtn = document.querySelector(".restart");
 
 playerTurnHTML.innerHTML = `${playerTurn}'s Turn`;
 
@@ -47,13 +47,13 @@ gameStart();
 
 function gameStart() {
   bigFields.forEach((bigField) => {
-    bigField.addEventListener('click', (e) => {
+    bigField.addEventListener("click", (e) => {
       // adding class 'clicked' so when clicked they can't click anywhere else unless moved
-      const bigCellIndex = e.target.parentNode.getAttribute('bigCellIndex');
-      const cellIndex = e.target.getAttribute('cellIndex');
+      const bigCellIndex = e.target.parentNode.getAttribute("bigCellIndex");
+      const cellIndex = e.target.getAttribute("cellIndex");
       const clicked = e.target;
 
-      clicked.classList.add('clicked');
+      clicked.classList.add("clicked");
 
       if (cellIndex != null) {
         if (isGameOver) {
@@ -61,7 +61,7 @@ function gameStart() {
         }
 
         // * overwriting fix
-        if (clicked.innerText !== '') {
+        if (clicked.innerText !== "") {
           return;
         }
         e.target.innerText = playerTurn;
@@ -74,37 +74,37 @@ function gameStart() {
           const placedMove = placeableMoves[i];
           const winnerField = e.target;
           const bigCellIndexSetWinner =
-            winnerField.parentNode.getAttribute('bigCellIndex');
+            winnerField.parentNode.getAttribute("bigCellIndex");
           const winningBigField = bigFields[bigCellIndexSetWinner];
 
           checkWinner(placedMove, winnerField);
 
           if (
-            !placedMove.includes('') &&
-            winningBigField.getAttribute('won') !== 'true'
+            !placedMove.includes("") &&
+            winningBigField.getAttribute("won") !== "true"
           ) {
             // * wenn ein draw in einem Feld passiert, dann wird der komplette Array wieder blank (9 empty strings)
             for (let i = 0; i < placedMove.length; i++) {
               // backend nicht vergessen !
-              placedMove.splice(i, 1, '');
+              placedMove.splice(i, 1, "");
             }
 
             // * bug fixed: wenn ein draw in einem Feld passiert, dann werden alle .innerText = ''
             // * zusaetzlicher blink-Effekt
             const fieldDivs =
-              bigFields[bigCellIndexSetWinner].getElementsByTagName('div');
+              bigFields[bigCellIndexSetWinner].getElementsByTagName("div");
             const fieldDivsArray = Array.from(fieldDivs);
 
             const blinkingDiv = bigFields[bigCellIndexSetWinner];
 
             let isTransparent = false;
-            blinkingDiv.style.color = 'var(--highlight)';
+            blinkingDiv.style.color = "var(--highlight)";
 
             const intervalId = setInterval(() => {
               if (isTransparent) {
-                blinkingDiv.style.background = 'var(--highlight)';
+                blinkingDiv.style.background = "var(--highlight)";
               } else {
-                blinkingDiv.style.background = 'transparent';
+                blinkingDiv.style.background = "transparent";
               }
 
               isTransparent = !isTransparent;
@@ -113,11 +113,11 @@ function gameStart() {
             setTimeout(() => {
               clearInterval(intervalId);
 
-              blinkingDiv.style.background = 'transparent';
+              blinkingDiv.style.background = "transparent";
 
               fieldDivsArray.forEach((array) => {
                 // the actual disappearing text
-                array.innerText = '';
+                array.innerText = "";
               });
 
               // ? gescheiterter Versuch zu dem Effekt noch was hinzuzufuegen semi primaer, nur cool zu haben
@@ -139,32 +139,32 @@ function gameStart() {
 
         // * bug (fixed): trotz schon voll besetztem Felde clicked-class weitergegeben an gross-grid index
 
-        if (bigFields[cellIndex].getAttribute('won') !== 'true') {
-          clicked.parentNode.classList.remove('clicked');
-          clicked.classList.remove('clicked');
-          bigFields[cellIndex].classList.add('clicked');
+        if (bigFields[cellIndex].getAttribute("won") !== "true") {
+          clicked.parentNode.classList.remove("clicked");
+          clicked.classList.remove("clicked");
+          bigFields[cellIndex].classList.add("clicked");
 
           bigFields.forEach((court) => {
-            if (!court.classList.contains('clicked')) {
-              court.style.pointerEvents = 'none';
+            if (!court.classList.contains("clicked")) {
+              court.style.pointerEvents = "none";
             }
           });
         } else {
           bigFields.forEach((field) => {
-            field.classList.remove('clicked');
+            field.classList.remove("clicked");
           });
 
           bigFields.forEach((field) => {
-            if (field.getAttribute('won') !== 'true') {
-              field.style.pointerEvents = 'all';
+            if (field.getAttribute("won") !== "true") {
+              field.style.pointerEvents = "all";
             }
           });
 
           // ? Vielleicht sollte man considern statt frei waehlen zu koennen man einfach im vorherigem Feld bleibt, ausser wenn das Feld gerade gewonnen wurde ?
           errorMessage.innerText = `Field has already been won! Player (${playerTurn}) can choose freely now.`;
-          errorMessage.style.animation = 'error 3s linear';
+          errorMessage.style.animation = "error 3s linear";
           setTimeout(() => {
-            errorMessage.style.animation = 'none';
+            errorMessage.style.animation = "none";
           }, 3000);
         }
       }
@@ -176,37 +176,35 @@ function checkWinner(move, winner) {
   for (let i = 0; i < winningOptions.length; i++) {
     const conditions = winningOptions[i];
     const bigCellIndexSetWinner =
-      winner.parentNode.getAttribute('bigCellIndex');
+      winner.parentNode.getAttribute("bigCellIndex");
 
     const cellA = move[conditions[0]];
     const cellB = move[conditions[1]];
     const cellC = move[conditions[2]];
 
-    if (cellA === cellB && cellB === cellC && cellA !== '') {
+    if (cellA === cellB && cellB === cellC && cellA !== "") {
       const winningBigField = bigFields[bigCellIndexSetWinner];
-      const winningFieldArray = winningBigField.getElementsByTagName('div');
+      const winningFieldArray = winningBigField.getElementsByTagName("div");
 
       const winningfield1 = winningFieldArray[conditions[0]];
       const winningfield2 = winningFieldArray[conditions[1]];
       const winningfield3 = winningFieldArray[conditions[2]];
 
-      // searching for middle field for the svg position bc of complications with parentNode method
-      // a bit cursed but working
       const middleField = winningFieldArray[4];
 
       // * fix, dass in allen feldern die winnerfields von einem Feld angezeigt werden
       if (
-        (winningfield1.innerText === 'X' || winningfield1.innerText === 'O') &&
-        (winningfield2.innerText === 'X' || winningfield2.innerText === 'O') &&
-        (winningfield3.innerText === 'X' || winningfield3.innerText === 'O')
+        (winningfield1.innerText === "X" || winningfield1.innerText === "O") &&
+        (winningfield2.innerText === "X" || winningfield2.innerText === "O") &&
+        (winningfield3.innerText === "X" || winningfield3.innerText === "O")
       ) {
         if (winningfield1.innerText == winningfield2.innerText) {
           if (winningfield2.innerText == winningfield3.innerText) {
-            winningfield1.style.background = 'var(--highlight)';
-            winningfield2.style.background = 'var(--highlight)';
-            winningfield3.style.background = 'var(--highlight)';
+            winningfield1.style.background = "var(--highlight)";
+            winningfield2.style.background = "var(--highlight)";
+            winningfield3.style.background = "var(--highlight)";
 
-            winningBigField.setAttribute('won', 'true');
+            winningBigField.setAttribute("won", "true");
           }
         }
       }
@@ -217,19 +215,32 @@ function checkWinner(move, winner) {
       // * wenn im gewonnenem Feld platziert wird, wird die class ueberschrieben
 
       // * Bug fixed
-      if (winningBigField.getAttribute('won') === 'true') {
-        winningBigField.classList.add('won');
+      if (winningBigField.getAttribute("won") === "true") {
+        winningBigField.classList.add("won");
         winningBigField.classList.add(playerTurn);
 
         // applying svg to winner class
-        if(playerTurn === 'O') {
-          middleField.innerHTML += 
-          `<svg id="circle-svg">
+        if (playerTurn === "O") {
+          middleField.innerHTML += `<svg id="circle-svg">
             <circle cx="50%" cy="50%" r="75" />
-          </svg>`
+          </svg>`;
+        } else if (playerTurn === "X") {
+          middleField.innerHTML += `<svg
+          class="cross__svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 52 52">
+          <path
+            class="cross__path cross__path--right"
+            fill="none"
+            d="M16,16 l20,20" />
+          <path
+            class="cross__path cross__path--right"
+            fill="none"
+            d="M16,36 l20,-20" />
+        </svg>`;
         }
 
-        let winningBigFieldIndex = winningBigField.getAttribute('bigCellIndex');
+        let winningBigFieldIndex = winningBigField.getAttribute("bigCellIndex");
         bigFieldPlacedMoves.splice(winningBigFieldIndex, 1, playerTurn);
 
         moves++;
@@ -250,7 +261,7 @@ function checkBigGridWinner() {
     const bigB = bigFieldPlacedMoves[options[1]];
     const bigC = bigFieldPlacedMoves[options[2]];
 
-    if (bigA === bigB && bigB === bigC && bigA !== '') {
+    if (bigA === bigB && bigB === bigC && bigA !== "") {
       roundWon = true;
 
       // ! find a way to either hightlight winning Cells or draw a line through them
@@ -258,7 +269,7 @@ function checkBigGridWinner() {
     }
   }
 
-  if ((moves = 9) && !bigFieldPlacedMoves.includes('')) {
+  if ((moves = 9) && !bigFieldPlacedMoves.includes("")) {
     draw = true;
   }
 
@@ -271,7 +282,7 @@ function checkBigGridWinner() {
     isGameOver = true;
     statusText.innerText = `${playerTurn} wins!`;
 
-    if (playerTurn === 'X') {
+    if (playerTurn === "X") {
       p1Count++;
     } else {
       p2Count++;
@@ -286,59 +297,59 @@ function checkBigGridWinner() {
   }
 
   if (isGameOver) {
-    popup.style.display = 'flex';
-    restartBtn.style.display = 'block';
-    restartBtn.style.zIndex = '1001';
-    c.style.zIndex = '1000';
+    popup.style.display = "flex";
+    restartBtn.style.display = "block";
+    restartBtn.style.zIndex = "1001";
+    c.style.zIndex = "1000";
 
     bigFields.forEach((field) => {
-      field.style.pointerEvents = 'none';
+      field.style.pointerEvents = "none";
     });
   }
 }
 
-restartBtn.addEventListener('click', () => {
+restartBtn.addEventListener("click", () => {
   moves = 0;
-  playerTurn = 'X';
+  playerTurn = "X";
   isGameOver = false;
   draw = false;
 
   fields.forEach((field) => {
-    field.innerText = '';
+    field.innerText = "";
 
     // resets highlight onclick
-    field.style.background = 'none';
+    field.style.background = "none";
   });
 
   bigFields.forEach((field) => {
     // remove a bunch of classes
-    field.classList.remove('won');
-    field.classList.remove('X');
-    field.classList.remove('O');
+    field.classList.remove("won");
+    field.classList.remove("X");
+    field.classList.remove("O");
 
-    field.classList.remove('clicked');
-    field.style.pointerEvents = 'all';
+    field.classList.remove("clicked");
+    field.style.pointerEvents = "all";
 
-    field.setAttribute('won', 'false');
+    field.setAttribute("won", "false");
   });
 
-  popup.style.display = 'none';
-  restartBtn.style.display = 'none';
+  popup.style.display = "none";
+  restartBtn.style.display = "none";
 
-  bigFieldPlacedMoves = ['', '', '', '', '', '', '', '', ''];
+  bigFieldPlacedMoves = ["", "", "", "", "", "", "", "", ""];
   placeableMoves = [
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
-    ['', '', '', '', '', '', '', '', ''],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", ""],
   ];
 
-  c.style.zIndex = '-1';
+  c.style.zIndex = "-1";
   ctx.clearRect(0, 0, c.width, c.height);
 
   playerTurnHTML.innerHTML = `${playerTurn}'s Turn`;
@@ -347,10 +358,10 @@ restartBtn.addEventListener('click', () => {
 });
 
 function changePlayer() {
-  if (playerTurn === 'X') {
-    playerTurn = 'O';
-  } else if (playerTurn === 'O') {
-    playerTurn = 'X';
+  if (playerTurn === "X") {
+    playerTurn = "O";
+  } else if (playerTurn === "O") {
+    playerTurn = "X";
   }
   playerTurnHTML.innerHTML = `${playerTurn}'s Turn`;
 }
@@ -362,11 +373,11 @@ function getCenterPosition(element) {
   return { x: centerX, y: centerY };
 }
 
-const c = document.getElementById('stroke');
-const ctx = c.getContext('2d');
+const c = document.getElementById("stroke");
+const ctx = c.getContext("2d");
 
 function drawLineThroughWinningFields(options) {
-  c.style.display = 'block';
+  c.style.display = "block";
 
   // Get the center positions of the winning big fields
   const centerPositions = options.map((index) => {
@@ -384,19 +395,19 @@ function drawLineThroughWinningFields(options) {
   if (centerPositions[0].x === centerPositions[2].x) {
     ctx.moveTo(centerPositions[0].x, centerPositions[0].y - 50);
     ctx.lineTo(centerPositions[2].x, centerPositions[2].y + 50);
-    console.log('vertikal');
+    console.log("vertikal");
   } else if (centerPositions[0].y === centerPositions[2].y) {
     ctx.moveTo(centerPositions[0].x - 50, centerPositions[0].y);
     ctx.lineTo(centerPositions[2].x + 50, centerPositions[2].y);
-    console.log('horizontal');
+    console.log("horizontal");
   } else {
     ctx.moveTo(centerPositions[0].x - 50, centerPositions[0].y - 50);
     ctx.lineTo(centerPositions[2].x + 50, centerPositions[2].y + 50);
-    console.log('diagonal');
+    console.log("diagonal");
   }
 
   ctx.lineWidth = 10;
-  ctx.strokeStyle = '#606060';
-  ctx.lineJoin = 'round';
+  ctx.strokeStyle = "#606060";
+  ctx.lineJoin = "round";
   ctx.stroke();
 }
